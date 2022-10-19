@@ -37,6 +37,7 @@ typedef struct {
 } Selection_t;
 
 /* private variables */
+static int8_t last_state = -1; //debug
 static uint8_t state = READ_RFID;
 static Button_t bts[BTN_CNT] = {};
 static uint8_t bike_status[3] = {};
@@ -54,6 +55,9 @@ void quick_blink_red();
 void quick_blink_pin(uint8_t pin);
 
 void setup() {
+  // Serial
+  Serial.begin(9600);
+
   json_data["tenant"] = "";
   json_data["name"] = "";
 
@@ -91,6 +95,12 @@ void loop() {
 
 void fsm()
 {
+  delay(50);
+  // debug
+  if (last_state != state) {
+    Serial.println(state);
+    last_state = state;
+  }
   String json_string;
   const char* c_json_str;
 	uint8_t btn_state;
