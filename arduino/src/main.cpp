@@ -253,12 +253,17 @@ void fsm()
       digitalWrite(BIKE3_LED, LOW);
     }
     choice = {};
+    json_data["tenant"] = "";
+    json_data["name"] = "";
     state = READ_RFID;
 		break;
   
   case ERROR_STATE:
     quick_blink_red();
     state = READ_RFID;
+    choice = {};
+    json_data["tenant"] = "";
+    json_data["name"] = "";
     break;
 	}
 }
