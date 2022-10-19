@@ -133,6 +133,7 @@ void fsm()
     if (strID.equals(tags[0])){
       // tag de rosi
       choice.name_idx = 0;
+      json_data["tenant"] = "Rosinaldo";
       state = SELECT_BIKE;
       quick_blink_green();
       break;
@@ -140,6 +141,7 @@ void fsm()
     else if (strID.equals(tags[1])){
       // tag de rafael
       choice.name_idx = 1;
+      json_data["tenant"] = "Rafael";
       state = SELECT_BIKE;
       quick_blink_green();
       break;
@@ -147,6 +149,7 @@ void fsm()
     else if (strID.equals(tags[2])){
       // tag de marco
       choice.name_idx = 2;
+      json_data["tenant"] = "Marco";
       state = SELECT_BIKE;
       quick_blink_green();
       break;
@@ -154,6 +157,7 @@ void fsm()
     else if (strID.equals(tags[3])){
       // tag de bois
       choice.name_idx = 3;
+      json_data["tenant"] = "Bois";
       state = SELECT_BIKE;
       quick_blink_green();
       break;
@@ -175,6 +179,7 @@ void fsm()
       // se tiver bike no lugar
       if(bike_status[0] == 1){
         state = SEND_REQUEST;
+        json_data["name"] = "BIKE 1";
       }
       else {
         state = ERROR_STATE;
@@ -191,6 +196,7 @@ void fsm()
       // se tiver bike no lugar
 			if(bike_status[1] == 1){
         state = SEND_REQUEST;
+        json_data["name"] = "BIKE 2";
       }
       else {
         state = ERROR_STATE;
@@ -207,6 +213,7 @@ void fsm()
       // se tiver bike no lugar
 			if(bike_status[2] == 1){
         state = SEND_REQUEST;
+        json_data["name"] = "BIKE 3";
       }
       else {
         state = ERROR_STATE;
@@ -218,9 +225,6 @@ void fsm()
 		break;
 
 	case SEND_REQUEST:
-    // set json data
-    json_data["tenant"] = names[choice.name_idx];
-    json_data["name"] = bikes[choice.bike_idx];
     // stringfy json
     serializeJson(json_data, json_string);
     c_json_str = json_string.c_str();
@@ -233,9 +237,13 @@ void fsm()
   
   case WAIT_FOR_ESP:
     // ve se tem pacote
+    resp_size = 0;
     ReceivePacketCommand(&lixo, (uint8_t *)&lixo, resposta, &resp_size, 5000);
     // se teve resposta
     if (resp_size != 0) {
+      Serial.print("resposta da esp: ");
+      Serial.write(resposta, resp_size);
+      Serial.println();
       if (resposta[0] == 'Y'){
         state = UNLOCK_BIKE;
         break;
