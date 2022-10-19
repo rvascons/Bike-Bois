@@ -43,7 +43,7 @@ static Button_t bts[BTN_CNT] = {};
 static uint8_t bike_status[3] = {};
 static Selection_t choice = {};
 static String names[] = {"Rosinaldo", "Rafael", "Marco", "Bois"};
-static String tags[]  = {"tag rosi", "tag rafael", "tag arco", "tag bois"};
+static String tags[]  = {"tag rosi", "tag rafael", "tag marco", "4C:E5:5B:9B"};
 static String bikes[] = {"EMPTY", "BIKE 1", "BIKE 2", "BIKE 3"};
 static DynamicJsonDocument json_data(20);
 static MFRC522 rfid(SS_PIN, RST_PIN);

@@ -15,7 +15,7 @@ enum Status {
 
 static int8_t last_state = -1; // debug
 static uint8_t state = WAIT_ARDUINO;
-static uint8_t reposta[10];
+static uint8_t reposta[30];
 static uint8_t resp_size = 0;
 static uint8_t ok_msg = 'Y';
 static uint8_t error_msg = 'N';
